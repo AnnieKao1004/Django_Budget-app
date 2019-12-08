@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block content%}
+<div class="container">
+  <section class="section section-stats">
+    <div class="row">
+      <div class="col s12 m12 l4">
+        <div class="card-panel">
+          <h6 class="bold">Total Budget</h6>
+          <h4 class="bold">NT${{project.budget|intcomma}}</h4>
+        </div>
+      </div>
+      <div class="col s12 m6 l4">
+        <div class="card-panel">
+          <h6 class="bold">Budget Left</h6>
+          {% if project.budget_left > 0 %}
+            <h4 class="bold green-text" id="left">NT${{project.budget_left |intcomma}}</h4>
+          {% elif project.budget_left == 0%}
+            <h4 class="bold orange-text" id="left">NT${{project.budget_left |intcomma}}</h4>
+          {% else %}
+            <h4 class="bold red-text" id="left">NT${{project.budget_left |intcomma}}</h4>
+          {% endif %}
+          
+        </div>
+      </div>
+      <div class="col s12 m6 l4">
+        <div class="card-panel">
+          <h6 class="bold">Total Transactions</h6>
+          <h4 class="bold">{{project.total_transactions}}</h4>
+        </div>
+      </div>
+    </div>
+  </section> 
+  
+  <section class="section section-expenses">
+    <div class="row">
+      <a href="/" class="btn">Project List
+        <i class="material-icons white-text left">keyboard_arrow_left</i>
+      </a>
+      <button class="btn waves-effect right modal-trigger" data-target="expenseModal">
+        <i class="material-icons white-text left">add_circle</i>
+        Add Expense
+      </button>
+    </div>
+    <ul class="z-depth-1">
+        <li>
+            <div class="card-panel z-depth-0 expense">
+              <div class="row">
+                <div class="col l6">
+                  <span class="title bold">Title</span>
+                </div>
+                <div class="col l3">
+                  <span class="amount bold">Amount</span>
+                </div>
+                <div class="col l1">
+                  <span class="category bold">Category</span>
+                </div>
+                                
+              </div>
+            </div>
+          </li>
+      {% for expense in expense_list%}
+      <li>
+        <div class="card-panel z-depth-0 expense">
+          <div class="row">
+            <div class="col l6">
+              <span class="title">{{ expense.title}}</span>
+            </div>
+            <div class="col l3">
+              <span class="amount">NT${{ expense.amount |intcomma}}</span>
+            </div>
+            <div class="col l1">
+              <span class="category">{{ expense.category}}</span>
+            </div>
+            <a href="{% url 'delete' expense.id %}" class="close-icon">
+              <i class="material-icons red-text right">close</i>
+            </a>
+          </div>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+</div>
+
+<!-- modal -->
+<div id="expenseModal" class="modal">
+  <div class="modal-content">
+    <h4>Add Expense</h4>
+    <form method="POST"> {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn">Add</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  var elems = document.querySelectorAll('.modal');
+  var instances = M.Modal.init(elems);
+
+  var elem = document.querySelectorAll('select')
+  var instance = M.FormSelect.init(elem)
+
+</script>
+{% endblock %}
+
