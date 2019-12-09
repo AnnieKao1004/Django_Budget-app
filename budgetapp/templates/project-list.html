@@ -8,7 +8,8 @@
     <div class="col s12 m6 l4">
       <div class="card-panel">
         <h5>{{ project.name}}</h5>
-        <a href="{% url 'detail' project.slug %}" class="btn">detail</a>
+        <a href="{% url 'detail' project.slug %}" class="btn-small blue accent-2">detail</a>
+        <a href="{% url 'deleteProject' project.pk %}" class="btn-small pink lighten-2">delete</a>
       </div>  
     </div>
     {% endfor %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content%}
+<div class="container">
+  <form method="POST">{% csrf_token %}
+    <h4>Are you sure you want to delete "{{ project }}"?</h4>
+    <button class="btn waves-effect waves-light pink lighten-2" type="submit" name="action">Yes
+      <i class="material-icons right">send</i>
+    </button>
+    <a href="/" class="btn">
+      <i class="material-icons white-text left">keyboard_arrow_left</i>
+      No, Back to project list
+    </a>
+  </form>
+</div>
+{% endblock %}

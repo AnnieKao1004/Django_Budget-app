@@ -34,7 +34,7 @@
   
   <section class="section section-expenses">
     <div class="row">
-      <a href="/" class="btn">Project List
+      <a href="/" class="btn blue accent-2">Project List
         <i class="material-icons white-text left">keyboard_arrow_left</i>
       </a>
       <button class="btn waves-effect right modal-trigger" data-target="expenseModal">
@@ -72,7 +72,7 @@
             <div class="col l1">
               <span class="category">{{ expense.category}}</span>
             </div>
-            <a href="{% url 'delete' expense.id %}" class="close-icon">
+            <a href="{% url 'deleteExpense' expense.id %}" class="close-icon">
               <i class="material-icons red-text right">close</i>
             </a>
           </div>

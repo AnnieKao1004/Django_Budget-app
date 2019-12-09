@@ -4,6 +4,8 @@ from .forms import ProjectForm, ExpenseForm
 from django.views.generic import CreateView
 from django.http import HttpResponseRedirect, HttpResponse
 import json
+from django.urls import reverse_lazy
+from django.views.generic.edit import DeleteView
 
 
 # Create your views here.
@@ -44,3 +46,7 @@ def delete_expense(request, id):
   project_slug = expense.project.slug
   expense.delete()
   return HttpResponseRedirect('/{}'.format(project_slug))
+
+class ProjectDelete(DeleteView):
+  model = Project
+  success_url = reverse_lazy('list')
